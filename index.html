@@ -1,0 +1,892 @@
+<!DOCTYPE html><html class="dark" lang="es" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style>
+<style>
+  /* ---- Hero animado ---- */
+  @keyframes heroOrbFloat1 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-46%, -55%) scale(1.18); }
+  }
+  @keyframes heroOrbFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-26px, 24px) scale(1.14); }
+  }
+  @keyframes heroOrbFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: .45; }
+    50% { transform: translate(18px, -22px) scale(1.25); opacity: .8; }
+  }
+  @keyframes heroGridPan {
+    0% { background-position: 0 0; }
+    100% { background-position: 64px 64px; }
+  }
+  @keyframes heroBgZoom {
+    0%, 100% { transform: scale(1.05); }
+    50% { transform: scale(1.13); }
+  }
+  .hero-orb-1 { animation: heroOrbFloat1 10s ease-in-out infinite; }
+  .hero-orb-2 { animation: heroOrbFloat2 12s ease-in-out infinite; }
+  .hero-orb-3 { animation: heroOrbFloat3 9s ease-in-out infinite; }
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(76,215,246,0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(76,215,246,0.09) 1px, transparent 1px);
+    background-size: 32px 32px;
+    animation: heroGridPan 6s linear infinite;
+  }
+  .hero-bg-zoom { animation: heroBgZoom 18s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-orb-1, .hero-orb-2, .hero-orb-3, .hero-grid, .hero-bg-zoom { animation: none; }
+  }
+
+  /* ---- Botones con textura y animación 3D ---- */
+  .btn-3d {
+    position: relative;
+    overflow: hidden;
+    transition: transform .15s ease, box-shadow .15s ease;
+    will-change: transform;
+  }
+  .btn-3d::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0px, rgba(255,255,255,0.07) 2px, transparent 2px, transparent 6px);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .btn-3d::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.4) 48%, transparent 65%);
+    background-size: 220% 220%;
+    background-position: 150% 0;
+    transition: background-position .7s ease;
+    pointer-events: none;
+  }
+  .btn-3d:hover::after { background-position: -50% 0; }
+  .btn-3d:active { transform: translateY(3px) !important; }
+
+  .btn-3d-primary {
+    box-shadow: 0 5px 0 #4c1d95, 0 10px 22px -4px rgba(139,92,246,.55), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 6px rgba(0,0,0,.3);
+  }
+  .btn-3d-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #4c1d95, 0 18px 28px -4px rgba(139,92,246,.7), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -3px 6px rgba(0,0,0,.3);
+  }
+  .btn-3d-primary:active {
+    box-shadow: 0 1px 0 #4c1d95, 0 3px 8px -2px rgba(139,92,246,.5), inset 0 1px 0 rgba(255,255,255,.2), inset 0 -2px 4px rgba(0,0,0,.25);
+  }
+
+  .btn-3d-secondary {
+    box-shadow: 0 5px 0 rgba(4,90,107,.85), 0 10px 20px -4px rgba(6,182,212,.35), inset 0 1px 0 rgba(255,255,255,.2), inset 0 -3px 6px rgba(0,0,0,.25);
+  }
+  .btn-3d-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 rgba(4,90,107,.85), 0 14px 24px -4px rgba(6,182,212,.5), inset 0 1px 0 rgba(255,255,255,.25), inset 0 -3px 6px rgba(0,0,0,.25);
+  }
+  .btn-3d-secondary:active {
+    box-shadow: 0 1px 0 rgba(4,90,107,.85), 0 3px 6px -2px rgba(6,182,212,.35), inset 0 1px 0 rgba(255,255,255,.15), inset 0 -2px 4px rgba(0,0,0,.2);
+  }
+
+  .btn-3d-ghost {
+    box-shadow: 0 3px 0 rgba(0,0,0,.35), 0 6px 12px -3px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
+  }
+  .btn-3d-ghost:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 rgba(0,0,0,.35), 0 10px 16px -3px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  .btn-3d-ghost:active {
+    box-shadow: 0 1px 0 rgba(0,0,0,.35), 0 2px 6px -2px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.1);
+  }
+
+  .btn-3d:disabled, .btn-3d:disabled:hover {
+    transform: none !important;
+    box-shadow: 0 2px 0 rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08) !important;
+  }
+</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-primary-fixed-variant": "#5516be",
+          "surface-container-lowest": "#0b0e14",
+          "primary-fixed": "#e9ddff",
+          "on-secondary-container": "#00424e",
+          "on-error-container": "#ffdad6",
+          "surface-container-highest": "#32353c",
+          "outline": "#958ea0",
+          "surface-container": "#1d2026",
+          "on-secondary-fixed-variant": "#004e5c",
+          "inverse-surface": "#e1e2eb",
+          "on-primary-container": "#340080",
+          "secondary-fixed": "#acedff",
+          "tertiary-fixed-dim": "#ffb95f",
+          "on-tertiary-container": "#3e2400",
+          "secondary-container": "#03b5d3",
+          "error-container": "#93000a",
+          "secondary": "#4cd7f6",
+          "on-tertiary-fixed-variant": "#653e00",
+          "on-background": "#e1e2eb",
+          "surface-dim": "#10131a",
+          "tertiary-fixed": "#ffddb8",
+          "surface-tint": "#d0bcff",
+          "surface-container-high": "#272a31",
+          "inverse-on-surface": "#2e3037",
+          "on-primary": "#3c0091",
+          "on-error": "#690005",
+          "surface-container-low": "#191c22",
+          "surface-variant": "#32353c",
+          "on-surface": "#e1e2eb",
+          "on-secondary-fixed": "#001f26",
+          "on-secondary": "#003640",
+          "on-surface-variant": "#cbc3d7",
+          "inverse-primary": "#6d3bd7",
+          "error": "#ffb4ab",
+          "secondary-fixed-dim": "#4cd7f6",
+          "primary-container": "#a078ff",
+          "primary-fixed-dim": "#d0bcff",
+          "primary": "#d0bcff",
+          "background": "#10131a",
+          "tertiary": "#ffb95f",
+          "on-tertiary": "#472a00",
+          "outline-variant": "#494454",
+          "on-primary-fixed": "#23005c",
+          "on-tertiary-fixed": "#2a1700",
+          "surface": "#10131a",
+          "tertiary-container": "#ca8100",
+          "surface-bright": "#363940"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "2rem",
+          "margin-mobile": "1rem",
+          "space-xl": "2.5rem",
+          "space-md": "1rem",
+          "space-sm": "0.5rem",
+          "gutter-sm": "1rem",
+          "space-xs": "0.25rem",
+          "space-lg": "1.5rem",
+          "gutter": "1.5rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": [
+            "Space Grotesk"
+          ],
+          "headline-lg-mobile": [
+            "Space Grotesk"
+          ],
+          "label-caps": [
+            "JetBrains Mono"
+          ],
+          "label-numeric-lg": [
+            "JetBrains Mono"
+          ],
+          "display-hero": [
+            "Space Grotesk"
+          ],
+          "headline-lg": [
+            "Space Grotesk"
+          ],
+          "body-lg": [
+            "Chivo"
+          ],
+          "body-md": [
+            "Chivo"
+          ],
+          "body-sm": [
+            "Chivo"
+          ],
+          "label-numeric-md": [
+            "JetBrains Mono"
+          ],
+          "headline-sm": [
+            "Space Grotesk"
+          ],
+          "headline-md": [
+            "Space Grotesk"
+          ]
+        },
+        "fontSize": {
+          "display-hero-mobile": [
+            "38px",
+            {
+              "lineHeight": "44px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "headline-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "700"
+            }
+          ],
+          "label-caps": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.1em",
+              "fontWeight": "600"
+            }
+          ],
+          "label-numeric-lg": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "display-hero": [
+            "64px",
+            {
+              "lineHeight": "72px",
+              "letterSpacing": "-0.03em",
+              "fontWeight": "800"
+            }
+          ],
+          "headline-lg": [
+            "40px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "18px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "0em",
+              "fontWeight": "400"
+            }
+          ],
+          "body-md": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "letterSpacing": "0em",
+              "fontWeight": "400"
+            }
+          ],
+          "body-sm": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "letterSpacing": "0.01em",
+              "fontWeight": "400"
+            }
+          ],
+          "label-numeric-md": [
+            "16px",
+            {
+              "lineHeight": "24px",
+              "letterSpacing": "0em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-sm": [
+            "20px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "0em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-md": [
+            "28px",
+            {
+              "lineHeight": "36px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "700"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen selection:bg-secondary selection:text-on-secondary"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/85 backdrop-blur-xl border-b border-primary/20 shadow-[0_4px_25px_-4px_rgba(208,188,255,0.12),0_1px_15px_-2px_rgba(76,215,246,0.15)]"><div class="h-20 max-w-[1360px] mx-auto px-margin-mobile sm:px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-md"><svg aria-label="Colombia Cup Logo" class="h-10 w-10 shrink-0" fill="none" role="img" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="logoGrad" x1="0" x2="48" y1="0" y2="48"><stop offset="0%" stop-color="#4cd7f6"></stop><stop offset="55%" stop-color="#d0bcff"></stop><stop offset="100%" stop-color="#a078ff"></stop></linearGradient></defs><path d="M24 2 L44 12 V26 C44 36.5 36 43.5 24 46 C12 43.5 4 36.5 4 26 V12 Z" fill="url(#logoGrad)" opacity="0.18"></path><path d="M24 2 L44 12 V26 C44 36.5 36 43.5 24 46 C12 43.5 4 36.5 4 26 V12 Z" stroke="url(#logoGrad)" stroke-width="2"></path><path d="M26 12 L15 27 H22.5 L21 38 L34 21 H26.5 Z" fill="url(#logoGrad)"></path></svg><div class="flex flex-col"><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-on-surface font-extrabold">COLOMBIA CUP</span><span class="font-label-caps text-label-caps uppercase text-secondary tracking-widest">FORTNITE BR EDITION</span></div></div><nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="text-secondary bg-surface-container-high rounded-lg font-bold"><a class="text-on-surface-variant hover:text-on-surface transition-colors uppercase font-label-caps text-label-caps" data-path="informacion" href="#informacion">Información</a><a class="text-on-surface-variant hover:text-on-surface transition-colors uppercase font-label-caps text-label-caps" data-path="premios" href="#tabla-premios">Premios</a><a class="text-on-surface-variant hover:text-on-surface transition-colors uppercase font-label-caps text-label-caps" data-path="reglas" href="#reglas">Reglas</a><a class="text-on-surface-variant hover:text-on-surface transition-colors uppercase font-label-caps text-label-caps" data-path="inscripcion" href="#formulario">Inscripción</a><a class="text-on-surface-variant hover:text-on-surface transition-colors uppercase font-label-caps text-label-caps" data-path="jugadores-inscritos" href="#jugadores-inscritos">Jugadores Inscritos</a></nav><div class="flex items-center gap-space-sm sm:gap-space-md"><a class="btn-3d btn-3d-primary relative hidden sm:inline-flex items-center justify-center px-space-lg py-space-sm rounded-lg bg-gradient-to-r from-inverse-primary to-primary text-on-primary font-headline-sm text-label-caps uppercase font-bold tracking-wider" data-path="inscripcion" href="#formulario">Inscríbete Ya</a><a class="btn-3d btn-3d-primary relative inline-flex sm:hidden items-center justify-center w-11 h-11 rounded-lg bg-gradient-to-r from-inverse-primary to-primary text-on-primary" data-path="inscripcion" href="#formulario" aria-label="Inscríbete Ya"><span class="material-symbols-outlined">bolt</span></a><button aria-controls="mobile-nav" aria-expanded="false" aria-label="Abrir menú de navegación" class="xl:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg bg-surface-container-high text-on-surface" id="mobile-menu-toggle" onclick="toggleMobileMenu()" type="button"><span class="material-symbols-outlined" id="mobile-menu-icon">menu</span></button></div></div><nav class="hidden xl:hidden flex-col gap-1 px-margin-mobile sm:px-margin pb-space-md bg-surface-container-lowest/95 backdrop-blur-xl border-b border-primary/20" id="mobile-nav"><a class="px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors uppercase font-label-caps text-label-caps" href="#informacion" onclick="closeMobileMenu()">Información</a><a class="px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors uppercase font-label-caps text-label-caps" href="#tabla-premios" onclick="closeMobileMenu()">Premios</a><a class="px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors uppercase font-label-caps text-label-caps" href="#reglas" onclick="closeMobileMenu()">Reglas</a><a class="px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors uppercase font-label-caps text-label-caps" href="#formulario" onclick="closeMobileMenu()">Inscripción</a><a class="px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors uppercase font-label-caps text-label-caps" href="#jugadores-inscritos" onclick="closeMobileMenu()">Jugadores Inscritos</a></nav></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- HERO SECTION WITH ARENA VISUAL OVERLAY -->
+<section class="relative w-full overflow-hidden bg-surface-container-lowest -mt-20 pt-28 pb-16 lg:pb-24" id="informacion">
+<!-- Stadium Arena Background Video -->
+<video autoplay class="absolute inset-0 z-0 w-full h-full object-cover opacity-40 mix-blend-screen pointer-events-none" loop muted playsinline poster="https://lh3.googleusercontent.com/aida-public/AB6AXuCa_EtX1sKPUIcg2xS6c7Lzz96BhOX2M8wRwEu3WX1-LH1LPDl4LS-eQoS4QjSiGRtRUzSKcIciMMzpGLSEJrToo0KhHfvjC6lWw40Lgz38PHwb1qKLcmWTZtrFKgPOOfHNmgdyXUsTF0B77aeJCdjNJN5bNHdrha5oc5glw3VxJDu5mKEWC9tH3DOicqWOgmbL7qPOgnZ0pRLH5Ui26ilZ9KnrPVCi3eMYLAfmGn0Td0uni1rifzMG" preload="auto">
+<source src="hero-video.mp4" type="video/mp4">
+</video>
+<!-- Cyber Tactical Grid (animado) -->
+<div class="absolute inset-0 z-0 hero-grid opacity-60 pointer-events-none"></div>
+<!-- Cyber Tactical Grid & Glow Gradients -->
+<div class="absolute inset-0 z-0 bg-gradient-to-t from-surface via-surface/85 to-surface-container-lowest/60"></div>
+<div class="absolute top-1/4 left-1/2 w-[700px] h-[350px] bg-primary/20 blur-[130px] rounded-full pointer-events-none hero-orb-1"></div>
+<div class="absolute top-1/3 right-10 w-[450px] h-[350px] bg-secondary/15 blur-[120px] rounded-full pointer-events-none hero-orb-2"></div>
+<div class="absolute bottom-0 left-10 w-[350px] h-[280px] bg-tertiary/15 blur-[110px] rounded-full pointer-events-none hero-orb-3"></div>
+<div class="relative z-10 max-w-[1360px] mx-auto px-margin-mobile sm:px-margin">
+<!-- Live Registration Urgency Badge -->
+<div class="flex flex-wrap items-center gap-space-sm mb-space-md">
+<div class="inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-high/90 backdrop-blur-md shadow-md">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-error"></span>
+</span>
+<span class="font-label-caps text-label-caps text-error tracking-wider uppercase font-bold">INSCRIPCIONES ABIERTAS - COLOMBIA 2026</span>
+</div>
+<div class="hidden sm:inline-flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container/70 backdrop-blur-md">
+<span class="material-symbols-outlined text-secondary text-[16px]">wifi_tethering</span>
+<span class="font-label-caps text-label-caps text-secondary font-bold">LOBBY PRIVADO NA-EAST / CENTRAL (LATAM NORTH)</span>
+</div>
+</div>
+<!-- Main Tournament Headline -->
+<div class="max-w-4xl">
+<h1 class="font-display-hero text-headline-lg sm:text-display-hero text-on-surface uppercase tracking-tight font-extrabold leading-none">
+          Torneo Fortnite <br class="hidden sm:inline">
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-primary to-primary-container">
+            Battle Royale
+          </span>
+</h1>
+<p class="mt-space-md font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+          Jueves 1 de Octubre, 2026 • 9:00 PM (Hora Colombia) • Modalidad Solos (100 Jugadores en Lobby Oficial Cerrado). Ingreso a la sala: 8:00 PM – 8:55 PM. Demuestra tu puntería táctica, domina la tormenta y reclama la gloria nacional.
+        </p>
+</div>
+<!-- Action Cluster & Live Counter Micro-HUD -->
+<div class="mt-space-lg flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md">
+<a class="btn-3d btn-3d-primary inline-flex items-center justify-center gap-space-sm px-space-xl py-4 rounded-lg bg-gradient-to-r from-inverse-primary via-primary-container to-secondary-container text-surface-container-lowest font-headline-sm text-headline-sm font-extrabold tracking-wide uppercase" href="#formulario">
+<span class="material-symbols-outlined font-black text-2xl">bolt</span>
+          Inscríbete Ahora — Solo $5.000 COP
+        </a>
+<a class="btn-3d btn-3d-ghost inline-flex items-center justify-center gap-space-sm px-space-lg py-4 rounded-lg bg-surface-container-high/90 text-secondary hover:text-on-surface hover:bg-surface-container-highest" href="#tabla-premios">
+<span class="material-symbols-outlined">military_tech</span>
+          Ver Premiación Top 15
+        </a>
+</div>
+<!-- Live Stat Badges Bar -->
+<div class="mt-space-xl grid grid-cols-1 sm:grid-cols-3 gap-space-md max-w-3xl">
+<div class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-low/80 backdrop-blur-xl shadow-md">
+<div class="w-12 h-12 rounded-lg bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-3xl">trophy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Bolsa Garantizada</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold">$400.000 COP</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-low/80 backdrop-blur-xl shadow-md">
+<div class="w-12 h-12 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Cupo Máximo</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">100 Guerreros</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-low/80 backdrop-blur-xl shadow-md">
+<div class="w-12 h-12 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">devices</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Crossplay Total</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">PC • Consola • Móvil</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- QUICK STATS URGENCY CALLOUT -->
+<section class="w-full bg-surface-container-low py-6 shadow-inner">
+<div class="max-w-[1360px] mx-auto px-margin-mobile sm:px-margin flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md w-full md:w-auto">
+<div class="w-10 h-10 rounded-full bg-error/20 flex items-center justify-center text-error shrink-0">
+<span class="material-symbols-outlined text-2xl animate-pulse">timer</span>
+</div>
+<div>
+<span class="font-headline-sm text-body-lg font-bold text-on-surface flex items-center gap-2">
+            ⚡ Cupos Limitados: <span class="text-secondary font-headline-sm"><span data-roster-remaining>100</span> cupos restantes</span>
+</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase"><span data-roster-count>0</span> de 100 gladiadores ya han asegurado su slot de combate</p>
+</div>
+</div>
+<!-- Animated Visual Progress Bar -->
+<div class="w-full md:w-96 flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant">
+<span class="">Capacidad Registrada</span>
+<span class="text-secondary font-bold" data-roster-percent>0%</span>
+</div>
+<div class="w-full h-3 bg-surface-container-highest rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-gradient-to-r from-secondary to-primary rounded-full transition-all duration-1000 shadow-sm" id="registration-progress-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: INFORMACIÓN & REPARTO DE PREMIOS (TOP 15) -->
+<section class="w-full py-space-xl bg-surface" id="tabla-premios">
+<div class="max-w-[1360px] mx-auto px-margin-mobile sm:px-margin">
+<!-- Section Title Area -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-xl">
+<div>
+<div class="flex items-center gap-space-xs text-primary font-label-caps text-label-caps uppercase font-bold tracking-widest mb-1">
+<span class="material-symbols-outlined text-sm">stars</span>
+            Distribución Oficial del Pozo
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface uppercase font-extrabold tracking-tight">
+            Premios en Efectivo — <span class="text-tertiary">Top 15 Recompensado</span>
+</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">
+            Competencia con balance ético: 15 de los 100 jugadores recibirán transferencias directas el mismo día tras finalizar el escrutinio de repetición oficial.
+          </p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-high/60 backdrop-blur-md shrink-0 flex items-center gap-space-md shadow-md">
+<span class="material-symbols-outlined text-secondary text-3xl">payments</span>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Entrada Individual</div>
+<div class="font-headline-sm text-headline-sm font-black text-on-surface">$5.000 COP</div>
+</div>
+</div>
+</div>
+<!-- PODIUM TOP 3 CARDS (DESKTOP ASYMMETRIC BENTO) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md items-end mb-space-lg">
+<!-- 2nd Place: Silver Cyan -->
+<div class="order-2 md:order-1 rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between relative shadow-lg transform hover:-translate-y-1 transition-transform">
+<div class="absolute top-0 right-0 px-4 py-1.5 bg-secondary-container/30 text-secondary rounded-bl-xl font-label-caps text-label-caps font-bold">
+            SUBCAMPEÓN
+          </div>
+<div>
+<div class="w-12 h-12 rounded-lg bg-secondary/15 flex items-center justify-center text-secondary mb-space-md">
+<span class="material-symbols-outlined text-3xl">workspace_premium</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-secondary font-bold">2° Lugar Nacional</span>
+<div class="font-display-hero text-headline-lg font-black text-on-surface mt-1">$60.000 <span class="font-label-caps text-label-caps text-on-surface-variant">COP</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Transferencia inmediata Nequi/Daviplata + Certificado digital de honor LATAM.
+            </p>
+</div>
+<div class="mt-space-lg pt-space-sm bg-surface-container-highest/20 rounded-lg p-space-sm flex items-center justify-between text-on-surface font-label-caps text-label-caps"><span class="">Puntos Kill Min: +3</span><span class="text-secondary font-bold">15% del Pozo</span></div>
+</div>
+<!-- 1st Place: Champion Gold (Prominent Card) -->
+<div class="order-1 md:order-2 rounded-2xl bg-gradient-to-b from-surface-container-high to-surface-container-low p-space-xl flex flex-col justify-between relative shadow-2xl -mt-4 transform hover:-translate-y-2 transition-transform">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 px-6 py-1.5 bg-gradient-to-r from-tertiary via-tertiary-fixed-dim to-tertiary text-on-tertiary rounded-full font-label-caps text-label-caps font-extrabold uppercase shadow-lg tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">crown</span>
+            CAMPEÓN ABSOLUTO
+          </div>
+<div>
+<div class="w-16 h-16 rounded-xl bg-tertiary/20 flex items-center justify-center text-tertiary mb-space-md shadow-md mt-2">
+<span class="material-symbols-outlined text-4xl">emoji_events</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-tertiary font-bold tracking-wider">1° Lugar — Victoria Magistral</span>
+<div class="font-display-hero text-display-hero text-tertiary font-extrabold tracking-tight mt-1 leading-none">$104.000 <span class="text-headline-sm font-label-caps text-on-surface-variant">COP</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-sm">
+              Corona de Campeón + Bolsa Mayor + Trofeo Virtual 3D conmemorativo + Rango VIP Vitalicio en el Discord oficial de la Colombia Cup.
+            </p>
+</div>
+<div class="mt-space-lg p-space-sm bg-tertiary/10 rounded-lg flex items-center justify-between text-tertiary font-label-caps text-label-caps font-bold"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">verified</span> Victoria Inmortal</span><span class="">26% del Pozo</span></div>
+</div>
+<!-- 3rd Place: Bronze Violet -->
+<div class="order-3 rounded-xl bg-surface-container-low p-space-lg flex flex-col justify-between relative shadow-lg transform hover:-translate-y-1 transition-transform">
+<div class="absolute top-0 right-0 px-4 py-1.5 bg-primary-container/30 text-primary-fixed rounded-bl-xl font-label-caps text-label-caps font-bold">
+            TERCER PODIO
+          </div>
+<div>
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary mb-space-md">
+<span class="material-symbols-outlined text-3xl">military_tech</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-primary-fixed font-bold">3° Lugar Nacional</span>
+<div class="font-display-hero text-headline-lg font-black text-on-surface mt-1">$44.000 <span class="font-label-caps text-label-caps text-on-surface-variant">COP</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Pago directo en cuenta bancaria nacional + mención especial en la transmisión en vivo.
+            </p>
+</div>
+<div class="mt-space-lg pt-space-sm bg-surface-container-highest/20 rounded-lg p-space-sm flex items-center justify-between text-on-surface font-label-caps text-label-caps"><span class="">Premio Bronce Pro</span><span class="text-primary font-bold">11% del Pozo</span></div>
+</div>
+</div>
+<!-- REMAINING TOP 15 BREAKDOWN GRID -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md"><div class="p-space-md rounded-xl bg-surface-container-high/40 flex items-center justify-between shadow-sm border border-outline-variant/10"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-label-numeric-md text-secondary font-bold">4°</div><div><div class="font-headline-sm text-body-md text-on-surface font-bold">4° Lugar</div><div class="font-label-caps text-label-caps text-on-surface-variant">9% del pozo</div></div></div><div class="text-right"><span class="font-headline-sm text-headline-sm text-secondary font-bold">$36.000 COP</span><div class="font-label-caps text-label-caps text-on-surface-variant">1 jugador premiado</div></div></div><div class="p-space-md rounded-xl bg-surface-container-high/40 flex items-center justify-between shadow-sm border border-outline-variant/10"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-label-numeric-md text-secondary font-bold">5°</div><div><div class="font-headline-sm text-body-md text-on-surface font-bold">5° Lugar</div><div class="font-label-caps text-label-caps text-on-surface-variant">7% del pozo</div></div></div><div class="text-right"><span class="font-headline-sm text-headline-sm text-secondary font-bold">$28.000 COP</span><div class="font-label-caps text-label-caps text-on-surface-variant">1 jugador premiado</div></div></div><div class="p-space-md rounded-xl bg-surface-container-high/40 flex items-center justify-between shadow-sm border border-outline-variant/10"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-label-numeric-md text-secondary font-bold">6°</div><div><div class="font-headline-sm text-body-md text-on-surface font-bold">6° Lugar</div><div class="font-label-caps text-label-caps text-on-surface-variant">6% del pozo</div></div></div><div class="text-right"><span class="font-headline-sm text-headline-sm text-on-surface font-bold">$24.000 COP</span><div class="font-label-caps text-label-caps text-on-surface-variant">1 jugador premiado</div></div></div><div class="p-space-md rounded-xl bg-surface-container-high/40 flex items-center justify-between shadow-sm border border-outline-variant/10"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-label-numeric-md text-on-surface font-bold">7°</div><div><div class="font-headline-sm text-body-md text-on-surface font-bold">7° Lugar</div><div class="font-label-caps text-label-caps text-on-surface-variant">5% del pozo</div></div></div><div class="text-right"><span class="font-headline-sm text-headline-sm text-on-surface font-bold">$20.000 COP</span><div class="font-label-caps text-label-caps text-on-surface-variant">1 jugador premiado</div></div></div><div class="p-space-md rounded-xl bg-surface-container-high/40 flex items-center justify-between shadow-sm border border-outline-variant/10"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-label-numeric-md text-on-surface font-bold">8°</div><div><div class="font-headline-sm text-body-md text-on-surface font-bold">8° Lugar</div><div class="font-label-caps text-label-caps text-on-surface-variant">4% del pozo</div></div></div><div class="text-right"><span class="font-headline-sm text-headline-sm text-on-surface font-bold">$16.000 COP</span><div class="font-label-caps text-label-caps text-on-surface-variant">1 jugador premiado</div></div></div><div class="p-space-md rounded-xl bg-surface-container-high/40 flex items-center justify-between shadow-sm border border-outline-variant/10"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-label-numeric-md text-tertiary font-bold">9°-10°</div><div><div class="font-headline-sm text-body-md text-on-surface font-bold">9° y 10° Lugar</div><div class="font-label-caps text-label-caps text-tertiary">3% c/u ($24.000 tot.)</div></div></div><div class="text-right"><span class="font-headline-sm text-headline-sm text-tertiary font-bold">$12.000 COP</span><div class="font-label-caps text-label-caps text-on-surface-variant">cada uno (2 jugadores)</div></div></div><div class="sm:col-span-2 lg:col-span-3 p-space-md rounded-xl bg-surface-container-high/40 flex flex-col sm:flex-row items-center justify-between gap-space-sm shadow-sm border border-outline-variant/10"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-label-numeric-md text-primary font-bold">11°-15°</div><div><div class="font-headline-sm text-body-md text-on-surface font-bold">11° al 15° Lugar (5 Jugadores)</div><div class="font-label-caps text-label-caps text-on-surface-variant">2,2% cada uno • Pozo subtotal: $44.000 COP</div></div></div><div class="text-right flex items-baseline gap-2"><span class="font-headline-sm text-headline-sm text-primary font-bold">$8.800 COP</span><span class="font-label-caps text-label-caps text-on-surface-variant">c/u (Recuperación + Ganancia)</span></div></div></div>
+</div>
+</section>
+<!-- SECTION 3: CÓMO FUNCIONA / REGLAS RÁPIDAS (4 PASOS) -->
+<section class="w-full py-space-xl bg-surface-container-lowest" id="reglas">
+<div class="max-w-[1360px] mx-auto px-margin-mobile sm:px-margin">
+<div class="text-center max-w-2xl mx-auto mb-space-xl">
+<span class="font-label-caps text-label-caps uppercase text-secondary font-bold tracking-widest">Protocolo de Combate</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface uppercase font-extrabold mt-1">¿Cómo Participar en 4 Pasos?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+          Todo el proceso está automatizado para que tu única preocupación sea construir rápido y asegurar eliminaciones.
+        </p>
+</div>
+<!-- 4 Steps Flow Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Step 1 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-md relative overflow-hidden group hover:bg-surface-container transition-all">
+<div class="absolute -right-4 -bottom-4 text-7xl font-black text-surface-container-highest/20 pointer-events-none font-display-hero">01</div>
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary/20 text-primary flex items-center justify-center mb-space-md font-headline-sm font-black">
+              1
+            </div>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">Inscríbete</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Diligencia el formulario oficial con tu nombre real, número de WhatsApp y tu Epic ID exacto tal como aparece en Fortnite.
+            </p>
+</div>
+<div class="mt-space-md pt-2 flex items-center gap-1 text-primary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">badge</span> Registro Rápido
+          </div>
+</div>
+<!-- Step 2 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-md relative overflow-hidden group hover:bg-surface-container transition-all">
+<div class="absolute -right-4 -bottom-4 text-7xl font-black text-surface-container-highest/20 pointer-events-none font-display-hero">02</div>
+<div>
+<div class="w-12 h-12 rounded-xl bg-secondary/20 text-secondary flex items-center justify-center mb-space-md font-headline-sm font-black">
+              2
+            </div>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">Paga tu Entrada</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Transfiere $5.000 COP a través de Nequi o Daviplata y carga la captura de comprobante directamente en el registro.
+            </p>
+</div>
+<div class="mt-space-md pt-2 flex items-center gap-1 text-secondary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">attach_money</span> Solo $5.000 COP
+          </div>
+</div>
+<!-- Step 3 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-md relative overflow-hidden group hover:bg-surface-container transition-all">
+<div class="absolute -right-4 -bottom-4 text-7xl font-black text-surface-container-highest/20 pointer-events-none font-display-hero">03</div>
+<div>
+<div class="w-12 h-12 rounded-xl bg-tertiary/20 text-tertiary flex items-center justify-center mb-space-md font-headline-sm font-black">
+              3
+            </div>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">Código de Sala</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Te agregamos al canal privado de WhatsApp y Discord a las 8:00 PM (1 hora antes del inicio) para compartir la clave del lobby personalizado.
+            </p>
+</div>
+<div class="mt-space-md pt-2 flex items-center gap-1 text-tertiary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">key</span> Clave Privada
+          </div>
+</div>
+<!-- Step 4 -->
+<div class="p-space-lg rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-md relative overflow-hidden group hover:bg-surface-container transition-all">
+<div class="absolute -right-4 -bottom-4 text-7xl font-black text-surface-container-highest/20 pointer-events-none font-display-hero">04</div>
+<div>
+<div class="w-12 h-12 rounded-xl bg-error/20 text-error flex items-center justify-center mb-space-md font-headline-sm font-black">
+              4
+            </div>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">Juega y Compite</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Aterriza, equipa tu loot, supera la zona y busca la Victoria Magistral para cobrar de inmediato tu recompensa por transferencia.
+            </p>
+</div>
+<div class="mt-space-md pt-2 flex items-center gap-1 text-error font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">sports_esports</span> Victoria Campal
+          </div>
+</div>
+</div>
+<!-- FAIR PLAY & RULES CHIPS -->
+<div class="mt-space-lg p-space-md rounded-2xl bg-surface-container flex flex-wrap items-center justify-around gap-space-md shadow-sm">
+<div class="flex items-center gap-space-xs text-on-surface font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-error text-lg">shield</span>
+<span class="">ANTIHACK ACTIVO: CERO TOLERANCIA / BAN PERMANENTE</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-tertiary text-lg">scoreboard</span>
+<span class="">PUNTAJE MIXTO: 1 KILL = 1 PT | VICTORIA = 10 PTS</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: FORMULARIO DE INSCRIPCIÓN (COMPACT, CLEAR, ZERO-FRICTION) -->
+<section class="w-full py-space-xl bg-surface relative overflow-hidden" id="formulario">
+<div class="max-w-[1100px] mx-auto px-margin-mobile sm:px-margin">
+<!-- Form Container Card -->
+<div class="rounded-3xl bg-surface-container-low p-space-lg sm:p-space-xl shadow-2xl relative">
+<div class="text-center max-w-xl mx-auto mb-space-lg">
+<span class="px-space-md py-1 rounded-full bg-secondary-container/20 text-secondary font-label-caps text-label-caps font-bold uppercase inline-block mb-2" id="registration-status-badge">
+            Registro Oficial Abierto
+          </span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface uppercase font-extrabold">Formulario de Inscripción</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Asegura tu cupo antes de que se agoten los <span class="text-secondary font-bold"><span data-roster-remaining>100</span> puestos disponibles</span>.
+          </p>
+</div>
+<div class="hidden mb-space-lg p-space-lg rounded-2xl bg-gradient-to-b from-tertiary/10 to-transparent border border-tertiary/40 text-center" id="registration-closed-banner">
+<span class="material-symbols-outlined text-tertiary text-4xl">military_tech</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-tertiary font-bold mt-2">¡Los 100 Cupos Ya Volaron!</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-md mx-auto">La Colombia Cup de esta edición está sold out. Gracias por hacer parte de la comunidad — mantente atento a nuestro Discord e Instagram para enterarte primero de la fecha del próximo torneo y asegurar tu cupo antes que nadie.</p>
+<div class="flex flex-wrap items-center justify-center gap-space-sm mt-space-md">
+<a class="btn-3d btn-3d-secondary inline-flex items-center gap-1 px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps font-bold uppercase" href="#" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-lg">forum</span>Discord Oficial</a>
+<a class="btn-3d btn-3d-ghost inline-flex items-center gap-1 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface font-label-caps text-label-caps font-bold uppercase" href="#" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-lg">photo_camera</span>Instagram</a>
+</div>
+</div>
+<div class="w-full rounded-2xl bg-surface-container border border-primary/20 shadow-2xl p-space-md sm:p-space-xl" id="registro-form-wrapper"><form class="space-y-space-lg" id="registro-form" onsubmit="handleRegistroSubmit(event)"><div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg"><div class="lg:col-span-7 flex flex-col gap-space-md"><div class="flex items-center gap-2 pb-2 border-b border-outline-variant/20"><span class="material-symbols-outlined text-secondary text-xl">person_add</span><h3 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">1. Datos del Jugador</h3></div><div class="flex flex-col gap-1.5"><label class="font-label-caps text-label-caps text-on-surface uppercase font-bold flex items-center justify-between" for="player-name"><span class="">Nombre Completo *</span><span class="text-outline text-[11px] font-normal">Como figura en tu documento</span></label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">badge</span><input class="w-full pl-10 pr-4 py-3 rounded-xl bg-surface-container-high text-on-surface placeholder:text-outline text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary border border-outline-variant/20 font-body-md" id="player-name" placeholder="Ej. Andrés Felipe Restrepo" required="" type="text"></div></div><div class="flex flex-col gap-1.5"><label class="font-label-caps text-label-caps text-on-surface uppercase font-bold flex items-center justify-between" for="player-epic"><span class="">Epic Games ID *</span><span class="text-secondary text-[11px] font-bold">Exacto como en el juego</span></label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-lg">sports_esports</span><input class="w-full pl-10 pr-4 py-3 rounded-xl bg-surface-container-high text-on-surface placeholder:text-outline text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary border border-outline-variant/20 font-label-numeric-md font-bold tracking-wide" id="player-epic" placeholder="Ej. Vortex_FN_Col" required="" type="text"></div><span class="text-[11px] font-body-sm text-outline flex items-start gap-1 mt-0.5"><span class="material-symbols-outlined text-sm text-secondary shrink-0">info</span><span>Encuéntralo en Fortnite: Ajustes &gt; Cuenta y privacidad &gt; Nombre para mostrar de Epic.</span></span></div><div class="flex flex-col gap-1.5"><label class="font-label-caps text-label-caps text-on-surface uppercase font-bold flex items-center justify-between" for="player-whatsapp"><span class="">Número de WhatsApp / Celular *</span><span class="text-outline text-[11px] font-normal">Canal privado de sala</span></label><div class="relative"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">call</span><input class="w-full pl-10 pr-4 py-3 rounded-xl bg-surface-container-high text-on-surface placeholder:text-outline text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary border border-outline-variant/20 font-body-md" id="player-whatsapp" placeholder="+57 300 123 4567" required="" type="tel"></div><span class="text-[11px] font-body-sm text-outline">Se te agregará al grupo privado a las 8:00 PM del 1 de octubre para entregarte la clave de sala. Debes estar dentro del juego entre 8:00 PM y 8:55 PM.</span></div></div><div class="lg:col-span-5 flex flex-col gap-space-md"><div class="flex items-center gap-2 pb-2 border-b border-outline-variant/20"><span class="material-symbols-outlined text-tertiary text-xl">qr_code_2</span><h3 class="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">2. Pago Oficial de Entrada</h3></div><div class="p-space-md rounded-2xl bg-surface-container-low border border-outline-variant/30 flex flex-col items-center text-center shadow-lg relative overflow-hidden"><div class="w-full flex items-center justify-between mb-space-sm"><span class="px-2 py-0.5 rounded bg-tertiary/10 text-tertiary font-label-caps text-[11px] font-bold uppercase">Bre-B / Nequi</span><span class="font-headline-sm text-headline-sm text-on-surface font-bold">$5.000 COP</span></div><div class="p-3 bg-white rounded-xl shadow-md border border-outline-variant/20 mb-space-sm max-w-[200px] w-full aspect-square flex items-center justify-center"><img alt="QR de Pago Bre-B Nequi" class="w-full h-full object-contain" src="qr-pago.png"></div><div class="w-full flex flex-col gap-1 text-left bg-surface-container-highest/20 rounded-xl p-space-sm border border-outline-variant/20"><div class="flex items-center justify-between text-body-sm"><span class="text-outline font-label-caps text-[11px] uppercase">Titular:</span><span class="font-bold text-on-surface">Saul Tintinago</span></div><div class="flex items-center justify-between text-body-sm"><span class="text-outline font-label-caps text-[11px] uppercase">Llave Bre-B:</span><div class="flex items-center gap-1"><span class="font-label-numeric-md text-secondary font-bold text-[14px]" id="payment-key">@3202784199</span><button class="btn-3d btn-3d-ghost p-1 rounded text-on-surface-variant hover:text-secondary" onclick="navigator.clipboard.writeText('@3202784199'); alert('Llave Bre-B copiada al portapapeles');" title="Copiar Llave" type="button"><span class="material-symbols-outlined text-[16px]">content_copy</span></button></div></div></div><div class="w-full mt-space-sm"><label class="block text-left font-label-caps text-[11px] text-on-surface uppercase font-bold mb-1.5">Subir Comprobante de Pago *</label><label class="flex flex-col items-center justify-center w-full p-4 rounded-xl border border-dashed border-secondary/40 hover:border-secondary bg-surface-container-high/60 cursor-pointer transition-colors group"><div class="flex items-center gap-2 text-secondary group-hover:text-primary transition-colors"><span class="material-symbols-outlined text-2xl">upload_file</span><span class="font-label-caps text-label-caps font-bold uppercase">Captura Nequi / Bre-B</span></div><span class="text-[11px] text-outline mt-1">PNG, JPG o PDF (máx. 10MB)</span><input accept="image/*,application/pdf" class="hidden" id="payment-proof" required="" type="file"></label></div></div></div></div><div class="pt-space-md border-t border-outline-variant/20 flex flex-col gap-space-md"><label class="flex items-start gap-space-sm cursor-pointer select-none"><input class="mt-1 h-4 w-4 rounded border-outline-variant/40 bg-surface-container-high text-secondary focus:ring-secondary" required="" type="checkbox"><span class="font-body-sm text-body-sm text-on-surface-variant">Confirmo que he transferido los <strong>$5.000 COP</strong> a la llave indicada y que mis datos de Epic ID son exactos para recibir la invitación al lobby cerrado.</span></label><button class="btn-3d btn-3d-primary w-full py-4 px-space-xl rounded-xl bg-gradient-to-r from-inverse-primary via-primary-container to-secondary-container text-surface-container-lowest font-headline-sm text-headline-sm font-extrabold uppercase tracking-wider flex items-center justify-center gap-space-sm disabled:opacity-60 disabled:cursor-not-allowed" id="registro-submit-btn" type="submit"><span class="material-symbols-outlined font-black text-2xl">sports_esports</span><span id="registro-submit-label">Confirmar Inscripción y Reservar Cupo</span></button><div class="flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-2 text-[11px] font-label-caps text-on-surface-variant"><span class="flex items-start gap-1"><span class="material-symbols-outlined text-sm text-secondary shrink-0">lock</span><span><span data-roster-count>0</span> de 100 gladiadores registrados — Solo <span data-roster-remaining>100</span> cupos disponibles.</span></span><span class="text-tertiary flex items-start gap-1"><span class="material-symbols-outlined text-sm shrink-0">verified_user</span><span>Reembolso 100% garantizado si el torneo es reprogramado.</span></span></div></div></form></div>
+<!-- INTERACTIVE SUCCESS CONFIRMATION MODAL / BOX (HIDDEN BY DEFAULT) -->
+
+</div>
+</div>
+</section>
+<!-- SECTION 5: LISTA DE JUGADORES INSCRITOS (LIVE ROSTER / LEADERBOARD 37/100) -->
+<section class="w-full py-space-xl bg-surface-container-lowest" id="jugadores-inscritos">
+<div class="max-w-[1360px] mx-auto px-margin-mobile sm:px-margin">
+<!-- Section Header with Search Bar -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+<div>
+<div class="flex items-center gap-space-xs text-secondary font-label-caps text-label-caps uppercase font-bold tracking-widest mb-1">
+<span class="material-symbols-outlined text-sm">groups_3</span>
+            Roster Oficial en Tiempo Real
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface uppercase font-extrabold">Jugadores Confirmados (<span data-roster-count>0</span> / 100)</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Lista verificada de contendientes habilitados para ingresar a la partida privada.</p>
+</div>
+<!-- Filter / Search Box -->
+<div class="relative w-full md:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-container-high text-on-surface placeholder:text-outline text-body-sm focus:outline-none focus:ring-1 focus:ring-secondary font-body-sm shadow-sm" id="player-search" onkeyup="filterRoster()" placeholder="Buscar por Epic ID o Nombre..." type="text">
+</div>
+</div>
+<!-- Styled Responsive Esports Leaderboard Table -->
+<div class="w-full overflow-x-auto rounded-2xl bg-surface-container-low shadow-xl">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">
+<th class="py-4 px-space-md text-center">Slot #</th>
+<th class="py-4 px-space-md">Jugador</th>
+<th class="py-4 px-space-md">Epic Games ID</th>
+<th class="py-4 px-space-md text-center">Estado</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface" id="roster-table-body">
+<tr id="roster-empty-row">
+<td class="py-6 px-space-md text-center text-on-surface-variant" colspan="4">Conecta la hoja de cálculo (google-apps-script.gs) para mostrar aquí los inscritos reales.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Remaining Slots Teaser -->
+<div class="mt-space-md p-space-md rounded-xl bg-surface-container-high/40 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-2xl">hourglass_bottom</span>
+<span class="font-body-sm text-body-sm text-on-surface">
+            <strong data-roster-count>0</strong> inscritos reales confirmados hasta ahora. Los slots <strong><span data-roster-next-slot>#1</span> al #100</strong> están libres para reserva inmediata.
+          </span>
+</div>
+<a class="btn-3d btn-3d-secondary px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps font-bold uppercase shrink-0" href="#formulario">
+          Reclamar Cupo <span data-roster-next-slot>#1</span>
+        </a>
+</div>
+</div>
+</section>
+<!-- Mobile Navigation Toggle -->
+<script>
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobile-nav');
+      const btn = document.getElementById('mobile-menu-toggle');
+      const icon = document.getElementById('mobile-menu-icon');
+      const isOpen = !nav.classList.contains('hidden');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        nav.classList.remove('hidden');
+        nav.classList.add('flex');
+        btn.setAttribute('aria-expanded', 'true');
+        icon.textContent = 'close';
+      }
+    }
+
+    function closeMobileMenu() {
+      const nav = document.getElementById('mobile-nav');
+      const btn = document.getElementById('mobile-menu-toggle');
+      const icon = document.getElementById('mobile-menu-icon');
+      nav.classList.add('hidden');
+      nav.classList.remove('flex');
+      btn.setAttribute('aria-expanded', 'false');
+      icon.textContent = 'menu';
+    }
+
+    window.matchMedia('(min-width: 1280px)').addEventListener('change', (e) => {
+      if (e.matches) closeMobileMenu();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('mobile-nav');
+      const btn = document.getElementById('mobile-menu-toggle');
+      if (!nav || nav.classList.contains('hidden')) return;
+      if (!nav.contains(e.target) && !btn.contains(e.target)) closeMobileMenu();
+    });
+  </script>
+<!-- Interactive JavaScript for Live Filter Micro-Interaction -->
+<script>
+    function filterRoster() {
+      const input = document.getElementById('player-search');
+      const filter = input.value.toLowerCase();
+      const tbody = document.getElementById('roster-table-body');
+      const trs = tbody.getElementsByTagName('tr');
+
+      for (let i = 0; i < trs.length; i++) {
+        const textContent = trs[i].textContent || trs[i].innerText;
+        if (textContent.toLowerCase().indexOf(filter) > -1) {
+          trs[i].style.display = "";
+        } else {
+          trs[i].style.display = "none";
+        }
+      }
+    }
+  </script>
+<!-- Conexión del formulario de inscripción con Google Sheets (ver instrucciones en google-apps-script.gs) -->
+<script>
+    // Pega aquí la URL que te da Google al desplegar el Apps Script como "Web App".
+    // Instrucciones completas en el archivo google-apps-script.gs de este proyecto.
+    const REGISTRO_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbwXqybOQw6kcjeX7mrmzN4AfHcBwza48ux8uFesmqZjnru2Y5aaHwWaDxH8c_WDqFZoWA/exec";
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleRegistroSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const submitBtn = document.getElementById('registro-submit-btn');
+      const submitLabel = document.getElementById('registro-submit-label');
+      const originalLabel = submitLabel.textContent;
+
+      if (REGISTRO_ENDPOINT_URL.indexOf('PEGA_AQUI') !== -1) {
+        alert('Falta conectar el formulario con la hoja de cálculo. Revisa el archivo google-apps-script.gs para completar la configuración.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Enviando...';
+
+      try {
+        const fileInput = document.getElementById('payment-proof');
+        const file = fileInput.files[0];
+
+        const payload = {
+          nombre: document.getElementById('player-name').value,
+          epicId: document.getElementById('player-epic').value,
+          whatsapp: document.getElementById('player-whatsapp').value,
+          comprobanteNombre: '',
+          comprobanteTipo: '',
+          comprobanteBase64: ''
+        };
+
+        if (file) {
+          payload.comprobanteNombre = file.name;
+          payload.comprobanteTipo = file.type;
+          payload.comprobanteBase64 = await fileToBase64(file);
+        }
+
+        await fetch(REGISTRO_ENDPOINT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        alert('¡Inscripción recibida con éxito! Tu comprobante será validado en breve.');
+        form.reset();
+        loadRosterFromSheet();
+      } catch (err) {
+        console.error(err);
+        alert('Hubo un error al enviar tu inscripción. Intenta de nuevo o escríbenos por WhatsApp.');
+      } finally {
+        submitBtn.disabled = false;
+        submitLabel.textContent = originalLabel;
+      }
+    }
+
+    // Lee el roster real desde la misma hoja de cálculo y refresca la tabla + contadores.
+    const MAX_SLOTS = 100;
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    function updateRosterCounters(count) {
+      const isFull = count >= MAX_SLOTS;
+      const remaining = Math.max(MAX_SLOTS - count, 0);
+      const percent = Math.min(Math.round((count / MAX_SLOTS) * 100), 100);
+      const nextSlot = isFull ? 'LLENO' : '#' + (count + 1);
+
+      document.querySelectorAll('[data-roster-count]').forEach(el => { el.textContent = count; });
+      document.querySelectorAll('[data-roster-remaining]').forEach(el => { el.textContent = remaining; });
+      document.querySelectorAll('[data-roster-percent]').forEach(el => { el.textContent = percent + '%'; });
+      document.querySelectorAll('[data-roster-next-slot]').forEach(el => { el.textContent = nextSlot; });
+
+      const bar = document.getElementById('registration-progress-bar');
+      if (bar) bar.style.width = percent + '%';
+
+      setRegistrationOpen(!isFull);
+    }
+
+    function setRegistrationOpen(isOpen) {
+      const banner = document.getElementById('registration-closed-banner');
+      const formWrapper = document.getElementById('registro-form-wrapper');
+      const submitBtn = document.getElementById('registro-submit-btn');
+      const submitLabel = document.getElementById('registro-submit-label');
+      const statusBadge = document.getElementById('registration-status-badge');
+      if (!banner || !formWrapper) return;
+
+      banner.classList.toggle('hidden', isOpen);
+      formWrapper.classList.toggle('hidden', !isOpen);
+
+      if (statusBadge) {
+        statusBadge.textContent = isOpen ? 'Registro Oficial Abierto' : '¡Nos vemos en el próximo torneo!';
+        statusBadge.classList.toggle('bg-secondary-container/20', isOpen);
+        statusBadge.classList.toggle('text-secondary', isOpen);
+        statusBadge.classList.toggle('bg-tertiary/15', !isOpen);
+        statusBadge.classList.toggle('text-tertiary', !isOpen);
+      }
+
+      if (!isOpen && submitBtn) {
+        submitBtn.disabled = true;
+        if (submitLabel) submitLabel.textContent = 'Cupos Agotados';
+      }
+    }
+
+    function renderRoster(jugadores) {
+      const tbody = document.getElementById('roster-table-body');
+      tbody.innerHTML = '';
+
+      if (!jugadores.length) {
+        tbody.innerHTML = '<tr id="roster-empty-row"><td class="py-6 px-space-md text-center text-on-surface-variant" colspan="4">Todavía no hay inscritos registrados. ¡Sé el primero!</td></tr>';
+      } else {
+        jugadores.forEach((jugador, i) => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-surface-container transition-colors' + (i % 2 === 1 ? ' bg-surface-container-lowest/30' : '');
+          tr.innerHTML =
+            '<td class="py-3.5 px-space-md text-center font-label-numeric-md font-bold text-on-surface-variant">#' + String(i + 1).padStart(2, '0') + '</td>' +
+            '<td class="py-3.5 px-space-md font-bold text-on-surface">' + escapeHtml(jugador.nombre) + '</td>' +
+            '<td class="py-3.5 px-space-md font-label-caps text-secondary font-bold">' + escapeHtml(jugador.epicId) + '</td>' +
+            '<td class="py-3.5 px-space-md text-center"><span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-caps text-[11px] font-bold">● REGISTRADO</span></td>';
+          tbody.appendChild(tr);
+        });
+      }
+
+      updateRosterCounters(jugadores.length);
+    }
+
+    async function loadRosterFromSheet() {
+      if (!REGISTRO_ENDPOINT_URL || REGISTRO_ENDPOINT_URL.indexOf('PEGA_AQUI') !== -1) return;
+      try {
+        const res = await fetch(REGISTRO_ENDPOINT_URL + '?action=roster');
+        const data = await res.json();
+        renderRoster(data.jugadores || []);
+      } catch (err) {
+        console.error('No se pudo cargar el roster en vivo desde la hoja de cálculo:', err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadRosterFromSheet);
+  </script>
+</div></main>
+</body></html>
