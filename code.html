@@ -887,6 +887,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', loadRosterFromSheet);
+    // Refresca el roster solo cada 20s para que se vea en vivo sin recargar la página.
+    setInterval(loadRosterFromSheet, 20000);
   </script>
 </div></main>
 </body></html>
