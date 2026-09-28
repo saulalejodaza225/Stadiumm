@@ -264,18 +264,30 @@ function aplicarFormatoCondicional_(sheet) {
   sheet.setConditionalFormatRules(reglasExistentes);
 }
 
+/**
+ * Hojas en idiomas como español usan coma como separador decimal, por lo que Sheets
+ * exige punto y coma entre los argumentos de una función (en vez de coma). Esta función
+ * detecta eso a partir del idioma configurado en la hoja para armar la fórmula bien.
+ */
+function separadorDeArgumentos_() {
+  var idioma = (SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetLocale() || '').split(/[-_]/)[0].toLowerCase();
+  var idiomasConComaDecimal = ['es', 'fr', 'de', 'it', 'pt', 'nl', 'pl', 'ru', 'tr', 'sv', 'fi', 'da', 'nb', 'no', 'cs', 'sk', 'ro', 'hu', 'el', 'uk'];
+  return idiomasConComaDecimal.indexOf(idioma) !== -1 ? ';' : ',';
+}
+
 function configurarPestanasFiltradas_() {
   var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sep = separadorDeArgumentos_();
 
   var verificadosSheet = ss.getSheetByName('Verificados') || ss.insertSheet('Verificados');
   verificadosSheet.clear();
   verificadosSheet.getRange('A1').setFormula(
-    "=QUERY('" + SHEET_NAME + "'!A:G,\"select A,B,C,D,E,F,G where F = '" + ESTADO_VERIFICADO + "'\",1)"
+    "=QUERY('" + SHEET_NAME + "'!A:G" + sep + "\"select A,B,C,D,E,F,G where F = '" + ESTADO_VERIFICADO + "'\"" + sep + "1)"
   );
 
   var revisarSheet = ss.getSheetByName('Revisar Manualmente') || ss.insertSheet('Revisar Manualmente');
   revisarSheet.clear();
   revisarSheet.getRange('A1').setFormula(
-    "=QUERY('" + SHEET_NAME + "'!A:G,\"select A,B,C,D,E,F,G where F = '" + ESTADO_REVISAR + "'\",1)"
+    "=QUERY('" + SHEET_NAME + "'!A:G" + sep + "\"select A,B,C,D,E,F,G where F = '" + ESTADO_REVISAR + "'\"" + sep + "1)"
   );
 }
