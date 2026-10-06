@@ -608,10 +608,10 @@
             Asegura tu cupo antes de que se agoten los <span class="text-secondary font-bold"><span data-roster-remaining>100</span> puestos disponibles</span>.
           </p>
 </div>
-<div class="hidden mb-space-lg p-space-lg rounded-2xl bg-gradient-to-b from-tertiary/10 to-transparent border border-tertiary/40 text-center" id="registration-closed-banner">
-<span class="material-symbols-outlined text-tertiary text-4xl">military_tech</span>
-<h3 class="font-headline-sm text-headline-sm uppercase text-tertiary font-bold mt-2">¡Los 100 Cupos Ya Volaron!</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-md mx-auto">El Torneo del Poder de esta edición está sold out. Gracias por hacer parte de la comunidad — mantente atento a nuestro Discord e Instagram para enterarte primero de la fecha del próximo torneo y asegurar tu cupo antes que nadie.</p>
+<div class="hidden mb-space-lg p-space-lg rounded-2xl bg-gradient-to-b from-tertiary/15 to-transparent border border-tertiary/50 text-center" id="registration-closed-banner">
+<span class="material-symbols-outlined text-tertiary text-4xl">emoji_events</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-tertiary font-bold mt-2">¡Torneo Confirmado! Cupo Lleno 100/100</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-md mx-auto">Se completaron los 100 cupos oficiales: <strong class="text-on-surface">El Torneo del Poder queda 100% confirmado</strong> para el jueves 1 de octubre, 9:00 PM (hora Colombia). Si ya estás inscrito, revisa tu WhatsApp a las 8:00 PM para recibir la clave de la sala.</p>
 <div class="flex flex-wrap items-center justify-center gap-space-sm mt-space-md">
 <a class="btn-3d btn-3d-secondary inline-flex items-center gap-1 px-space-md py-2 rounded-lg bg-secondary text-on-secondary font-label-caps text-label-caps font-bold uppercase" href="#" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-lg">forum</span>Discord Oficial</a>
 <a class="btn-3d btn-3d-ghost inline-flex items-center gap-1 px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface font-label-caps text-label-caps font-bold uppercase" href="#" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-lg">photo_camera</span>Instagram</a>
@@ -847,7 +847,7 @@
       formWrapper.classList.toggle('hidden', !isOpen);
 
       if (statusBadge) {
-        statusBadge.textContent = isOpen ? 'Registro Oficial Abierto' : '¡Nos vemos en el próximo torneo!';
+        statusBadge.textContent = isOpen ? 'Registro Oficial Abierto' : '🏆 Torneo Confirmado — Cupo Lleno';
         statusBadge.classList.toggle('bg-secondary-container/20', isOpen);
         statusBadge.classList.toggle('text-secondary', isOpen);
         statusBadge.classList.toggle('bg-tertiary/15', !isOpen);
@@ -856,7 +856,7 @@
 
       if (!isOpen && submitBtn) {
         submitBtn.disabled = true;
-        if (submitLabel) submitLabel.textContent = 'Cupos Agotados';
+        if (submitLabel) submitLabel.textContent = 'Cupo Lleno — Torneo Confirmado';
       }
     }
 
